@@ -21,7 +21,8 @@ defmodule DogSketch.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:propcheck, "~> 1.2"}
+      {:propcheck, "~> 1.2", only: :test},
+      {:benchee, "~> 1.0", only: :dev}
     ]
   end
 end
