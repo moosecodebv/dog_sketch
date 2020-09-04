@@ -25,7 +25,8 @@ defmodule DogSketch.MixProject do
   defp deps do
     [
       {:propcheck, "~> 1.2", only: :test},
-      {:benchee, "~> 1.0", only: :dev}
+      {:benchee, "~> 1.0", only: :dev},
+      {:ex_doc, "~> 0.22.2", only: :dev, runtime: false}
     ]
   end
 
