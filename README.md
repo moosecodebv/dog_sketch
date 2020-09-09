@@ -6,7 +6,7 @@ DogSketch is an implementation of the DDSketch algorithm, described in [this pap
 
 ## Examples
 
-This library includes an "exact" implementation that can be compared against for the purposes of evaluation.
+This library includes an "exact" implementation that can be compared against for the purposes of comparison (and property tests).
 
 Note: the `SimpleDog` implementation does not give any guarantees of memory boundedness, which the full DDSketch algorithm does. Adding this should not be difficult, if you need it then please contribute, PRs are welcome!
 
