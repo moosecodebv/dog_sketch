@@ -43,7 +43,7 @@ iex(10)> SimpleDog.merge(sd1, sd2)
 
 ## Benchmarks
 
-Artificial benchmarks (see [./bench](bench)) a 46x improvement in memory usage (0.1kb vs 4.6kb) for 2% relative error.
+Artificial benchmarks (see [./bench](bench)) indicate a 46x improvement in memory usage (0.1kb vs 4.6kb) for 2% relative error.
 
 While ExactDog can do inserts 1.4x faster than SimpleDog, `SimpleDog.insert/2` is still capable of more than 2 million inserts per second, which should be fast enough for just about anything.
 
