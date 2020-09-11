@@ -21,7 +21,7 @@ defmodule SimpleDogSketchTest do
         end)
         |> ExactDog.quantile(quantile)
 
-      abs(sd_quantile / exact_quantile - 1) < error
+      abs(sd_quantile / exact_quantile - 1) <= error
     end
   end
 

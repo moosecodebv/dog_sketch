@@ -1,10 +1,11 @@
 defmodule DogSketch.SimpleDog do
-  defstruct data: %{}, gamma: 0, total: 0
+  defstruct data: %{}, gamma: 0, total: 0, inv_log_gamma: 0
 
   def new(opts \\ []) do
     err = Keyword.get(opts, :error, 0.02)
     gamma = (1 + err) / (1 - err)
-    %__MODULE__{gamma: gamma}
+    inv_log_gamma = 1.0 / :math.log(gamma)
+    %__MODULE__{gamma: gamma, inv_log_gamma: inv_log_gamma}
   end
 
   def merge(%{gamma: g} = s1, %{gamma: g} = s2) do
@@ -14,9 +15,8 @@ defmodule DogSketch.SimpleDog do
 
   def insert(s, val) do
     bin =
-      (:math.log(val) / :math.log(s.gamma))
-      |> Float.ceil()
-      |> trunc()
+      (:math.log(val) * s.inv_log_gamma)
+      |> ceil()
 
     data = Map.update(s.data, bin, 1, fn x -> x + 1 end)
 
