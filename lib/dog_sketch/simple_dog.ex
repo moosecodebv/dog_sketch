@@ -21,6 +21,14 @@ defmodule DogSketch.SimpleDog do
     %__MODULE__{s | data: data, total: s.total + 1}
   end
 
+  def to_list(%{data: data, gamma: gamma}) do
+    Enum.map(data, fn {key, val} ->
+      {2 * :math.pow(gamma, key) / (gamma + 1), val}
+    end)
+  end
+
+  def quantile(%{total: 0}, _), do: nil
+
   def quantile(s, quantile) do
     total_quantile = s.total * quantile
 
