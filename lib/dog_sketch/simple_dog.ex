@@ -13,10 +13,8 @@ defmodule DogSketch.SimpleDog do
     %__MODULE__{data: data, gamma: g, total: s1.total + s2.total}
   end
 
-  def insert(s, val) do
-    bin =
-      (:math.log(val) * s.inv_log_gamma)
-      |> ceil()
+  def insert(s, val) when val > 0 do
+    bin = ceil(:math.log(val) * s.inv_log_gamma)
 
     data = Map.update(s.data, bin, 1, fn x -> x + 1 end)
 
@@ -38,4 +36,6 @@ defmodule DogSketch.SimpleDog do
 
     2 * :math.pow(s.gamma, index) / (s.gamma + 1)
   end
+
+  def count(%{total: total}), do: total
 end
