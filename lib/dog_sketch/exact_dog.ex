@@ -16,7 +16,7 @@ defmodule DogSketch.ExactDog do
     %__MODULE__{s | data: data, total: s.total + 1}
   end
 
-  def quantile(s, quantile) do
+  def quantile(s, quantile) when quantile >= 0 and quantile <= 1 do
     total_quantile = s.total * quantile
 
     index =
