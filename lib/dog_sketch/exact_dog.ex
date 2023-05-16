@@ -1,7 +1,7 @@
 defmodule DogSketch.ExactDog do
   defstruct data: %{}, total: 0
 
-  def new(opts \\ []) do
+  def new(_opts \\ []) do
     %__MODULE__{}
   end
 
