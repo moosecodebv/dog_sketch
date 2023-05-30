@@ -6,7 +6,7 @@ defmodule DogSketch.MixProject do
       app: :dog_sketch,
       name: "DogSketch",
       package: package(),
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/moosecodebv/dog_sketch",
