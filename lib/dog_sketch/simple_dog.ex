@@ -8,9 +8,9 @@ defmodule DogSketch.SimpleDog do
     %__MODULE__{gamma: gamma, inv_log_gamma: inv_log_gamma}
   end
 
-  def merge(%{gamma: g} = s1, %{gamma: g} = s2) do
+  def merge(%{gamma: g, inv_log_gamma: i} = s1, %{gamma: g} = s2) do
     data = Map.merge(s1.data, s2.data, fn _k, val1, val2 -> val1 + val2 end)
-    %__MODULE__{data: data, gamma: g, total: s1.total + s2.total}
+    %__MODULE__{data: data, gamma: g, total: s1.total + s2.total, inv_log_gamma: i}
   end
 
   def insert(s, val) when val > 0 do
