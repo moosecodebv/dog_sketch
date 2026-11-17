@@ -44,4 +44,34 @@ defmodule SimpleDogSketchTest do
       sd_quantile == merged_quantile
     end
   end
+
+  property "inserting into a merged sketch is the same as inserting into an unmerged one" do
+    forall {error, before_merge, after_merge} <-
+             {float(0.0, 1.0), non_empty(list(non_neg_float())), non_empty(list(non_neg_float()))} do
+      insert_all = fn sketch, values ->
+        Enum.reduce(values, sketch, fn val, acc -> SimpleDog.insert(acc, val) end)
+      end
+
+      direct = insert_all.(SimpleDog.new(error: error), before_merge ++ after_merge)
+
+      merged =
+        SimpleDog.new(error: error)
+        |> insert_all.(before_merge)
+        |> SimpleDog.merge(SimpleDog.new(error: error))
+        |> insert_all.(after_merge)
+
+      merged == direct
+    end
+  end
+
+  test "merge keeps the sketch usable for further inserts" do
+    s1 = SimpleDog.new() |> SimpleDog.insert(10)
+    s2 = SimpleDog.new() |> SimpleDog.insert(10)
+
+    merged =
+      SimpleDog.merge(s1, s2)
+      |> then(fn s -> Enum.reduce(1..100, s, fn _, acc -> SimpleDog.insert(acc, 1000) end) end)
+
+    assert_in_delta SimpleDog.quantile(merged, 0.5), 1000, 1000 * 0.02
+  end
 end
